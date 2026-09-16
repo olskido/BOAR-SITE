@@ -7,7 +7,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="hero pt-[104px] pb-14 sm:pt-[116px] lg:pt-[132px] lg:pb-16"
+      className="hero pt-[92px] pb-10 sm:pt-[104px]"
     >
       {/* faint green glow, kept extremely subtle */}
       <div
@@ -58,7 +58,7 @@ export function Hero() {
          ============================================================ */}
       <div className="container-boar relative w-full">
         <div className="max-w-[640px] lg:max-w-[46%] xl:max-w-[620px]">
-          <p className="eyebrow mb-4">Nikita Boar</p>
+          <p className="eyebrow mb-3">Nikita Boar</p>
 
           <Image
             src="/boar/logo/boar-wordmark.jpg"
@@ -67,19 +67,19 @@ export function Hero() {
             height={350}
             priority
             sizes="(max-width: 1024px) 88vw, 640px"
-            className="hero-wordmark h-auto w-[min(100%,560px)] select-none lg:w-[min(100%,640px)]"
+            className="hero-wordmark select-none"
           />
 
-          <p className="mt-2 font-marker text-4xl text-ink sm:text-5xl lg:text-[3.5rem] xl:text-6xl">
+          <p className="hero-posting mt-2 font-marker text-ink">
             Posting Hog.
           </p>
 
-          <p className="mt-5 font-display text-sm font-medium uppercase tracking-[0.24em] text-ink-muted sm:text-base lg:text-lg">
+          <p className="mt-4 font-display text-sm font-medium uppercase tracking-[0.24em] text-ink-muted sm:text-base lg:text-lg">
             Same internet. Different animal.
           </p>
 
           {/* mobile / tablet artwork — stacked, no left-fade needed */}
-          <div className="hero-art-mobile mt-8 lg:hidden">
+          <div className="hero-art-mobile mt-7 lg:hidden">
             <Image
               src="/boar/hero/nikita-wallstreet.jpg"
               alt="$BOAR — a hog in a pinstripe suit checking a gold watch on Wall Street, the Charging Bull behind him"
@@ -87,12 +87,12 @@ export function Hero() {
               height={1080}
               priority
               sizes="88vw"
-              className="hero-art-mobile__img h-[clamp(340px,72vw,560px)] w-full"
+              className="hero-art-mobile__img"
             />
             <div aria-hidden="true" className="hero-art-mobile__fade" />
           </div>
 
-          <div className="mt-8 max-w-md">
+          <div className="mt-6 max-w-md">
             <CopyAddress />
           </div>
 
@@ -101,7 +101,7 @@ export function Hero() {
               href={buyUrl || "#"}
               target={buyUrl ? "_blank" : undefined}
               rel={buyUrl ? "noopener noreferrer" : undefined}
-              className="inline-flex items-center justify-center rounded-full bg-boar-green px-8 py-4 font-display text-base font-bold uppercase tracking-wide text-carbon transition hover:brightness-110 sm:text-lg"
+              className="inline-flex items-center justify-center rounded-full bg-boar-green px-8 py-3.5 font-display text-base font-bold uppercase tracking-wide text-carbon transition hover:brightness-110 sm:text-lg"
             >
               Buy $BOAR
             </a>
@@ -111,7 +111,7 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={xUrl ? "View $BOAR on X" : "Open X"}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-surface-raised px-8 py-4 font-display text-base font-semibold uppercase tracking-wide text-ink transition hover:border-white/40 sm:text-lg"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-surface-raised px-8 py-3.5 font-display text-base font-semibold uppercase tracking-wide text-ink transition hover:border-white/40 sm:text-lg"
             >
               <XIcon className="h-4 w-4" />
               View on X

@@ -11,7 +11,7 @@
 
 /** The $BOAR contract address (mint). Falls back to the approved reference CA. */
 export const contractAddress =
-  process.env.NEXT_PUBLIC_BOAR_CA ??
+  process.env.NEXT_PUBLIC_BOAR_CA ||
   "CvhPmJe1BgQLcR3ncDgx2Q8Xg9iVT9wJxBxA1Jbjpump";
 
 /**
