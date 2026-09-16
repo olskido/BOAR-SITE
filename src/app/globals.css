@@ -1,0 +1,290 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-heading: "Anton", sans-serif;
+  --font-display: "Barlow Condensed", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  --color-base: #050706;
+  --color-boar-green: #b6ff36;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* offset for the sticky navbar when jumping to #anchors */
+    scroll-padding-top: 5rem;
+    background-color: var(--color-base);
+  }
+
+  body {
+    background-color: var(--color-base);
+    color: #f4f4f0;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* guard against any accidental horizontal overflow */
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+    letter-spacing: 0.01em;
+    line-height: 0.95;
+  }
+
+  /* Visible, on-brand focus ring for keyboard users only. */
+  :focus-visible {
+    outline: 2px solid var(--color-boar-green);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-boar-green);
+    color: #050706;
+  }
+
+  /* Subtle dark scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050706;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1c211d;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2a302b;
+  }
+}
+
+@layer components {
+  /* Consistent centered content column */
+  .container-boar {
+    width: 100%;
+    max-width: 1500px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-boar {
+      padding-inline: 2rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-boar {
+      padding-inline: 3rem;
+    }
+  }
+
+  /* Section eyebrow label */
+  .eyebrow {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-weight: 600;
+    color: #929892;
+    font-size: 0.75rem;
+  }
+
+  /* Short green accent rule under headings */
+  .accent-rule {
+    display: block;
+    width: 3rem;
+    height: 3px;
+    background: var(--color-boar-green);
+    border-radius: 999px;
+  }
+}
+
+/* Respect reduced motion: kill non-essential animation + smooth scroll. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* =====================================================================
+   HERO — cinematic Wall Street artwork emerging from black.
+   Values tuned against the approved reference for the 1080x1080 source
+   art (character center-right, building top, bull bottom-right).
+   Only the ARTWORK layers are ever blurred/faded — never the UI text.
+   ===================================================================== */
+
+.hero {
+  position: relative;
+  isolation: isolate; /* scopes the wordmark's screen blend to the hero */
+  overflow: hidden;
+}
+@media (min-width: 1024px) {
+  .hero {
+    min-height: clamp(680px, 90vh, 1000px);
+  }
+}
+
+/* The green $BOAR wordmark is a black-background JPG. Screen-blending it
+   drops the pure-black background so the letters composite cleanly over
+   the artwork instead of showing a rectangular image card. */
+.hero-wordmark {
+  mix-blend-mode: screen;
+}
+
+/* ---- Desktop artwork stage: absolute, anchored to the right, extended
+   left under the text so the black fade can dissolve its left edge. ---- */
+.hero-art {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: auto;
+  width: 60vw; /* ~60% of viewport, left edge ~40vw */
+  pointer-events: none;
+}
+
+/* The image itself — object-position protects the head on wide crops. */
+.hero-art__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 56% 10%;
+  border: 0;
+  border-radius: 0;
+}
+
+/* Sharp base layer: its own left edge dissolves to transparent so there is
+   never a hard vertical image boundary. */
+.hero-art__img--sharp {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.03) 10%,
+    rgba(0, 0, 0, 0.12) 17%,
+    rgba(0, 0, 0, 0.35) 24%,
+    rgba(0, 0, 0, 0.7) 31%,
+    #000 42%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.03) 10%,
+    rgba(0, 0, 0, 0.12) 17%,
+    rgba(0, 0, 0, 0.35) 24%,
+    rgba(0, 0, 0, 0.7) 31%,
+    #000 42%
+  );
+}
+
+/* Blurred twin: exists ONLY inside the transition band, softening the
+   emerging edge, then fades out before it reaches the character. */
+.hero-art__img--blur {
+  filter: blur(22px);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.5) 8%,
+    #000 16%,
+    #000 26%,
+    rgba(0, 0, 0, 0.5) 34%,
+    transparent 42%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.5) 8%,
+    #000 16%,
+    #000 26%,
+    rgba(0, 0, 0, 0.5) 34%,
+    transparent 42%
+  );
+}
+
+/* Primary blend: heavy black on the far left, easing to clear art.
+   This does most of the work; the mask/blur only kill the hard edge. */
+.hero-art__fade-left {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    #050706 0%,
+    rgba(5, 7, 6, 0.99) 6%,
+    rgba(5, 7, 6, 0.97) 12%,
+    rgba(5, 7, 6, 0.92) 18%,
+    rgba(5, 7, 6, 0.82) 24%,
+    rgba(5, 7, 6, 0.64) 30%,
+    rgba(5, 7, 6, 0.42) 36%,
+    rgba(5, 7, 6, 0.2) 42%,
+    rgba(5, 7, 6, 0.06) 48%,
+    transparent 55%
+  );
+}
+
+/* Subtle bottom dissolve into the page so the art has no bottom edge. */
+.hero-art__fade-bottom {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    #050706 0%,
+    rgba(5, 7, 6, 0.55) 9%,
+    rgba(5, 7, 6, 0.18) 17%,
+    transparent 30%
+  );
+}
+
+/* Whisper-thin top dissolve so architecture melts under the navbar. */
+.hero-art__fade-top {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 7, 6, 0.85) 0%,
+    rgba(5, 7, 6, 0.35) 6%,
+    transparent 14%
+  );
+}
+
+/* ---- Mobile / tablet artwork: a full-width block, darkened on every
+   edge (no left-only fade needed when stacked). ---- */
+.hero-art-mobile {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+}
+.hero-art-mobile__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% 14%;
+}
+.hero-art-mobile__fade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, #050706 0%, rgba(5, 7, 6, 0.4) 12%, transparent 26%),
+    linear-gradient(to bottom, #050706 0%, rgba(5, 7, 6, 0.18) 9%, transparent 20%),
+    linear-gradient(to right, rgba(5, 7, 6, 0.55) 0%, transparent 8%, transparent 92%, rgba(5, 7, 6, 0.55) 100%),
+    radial-gradient(130% 90% at 58% 40%, transparent 52%, rgba(5, 7, 6, 0.55) 100%);
+}
