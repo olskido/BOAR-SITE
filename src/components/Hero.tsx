@@ -7,7 +7,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="hero pt-[92px] pb-10 sm:pt-[104px]"
+      className="hero pt-[72px] pb-10 sm:pt-[92px] lg:pt-[104px]"
     >
       {/* faint green glow, kept extremely subtle */}
       <div
@@ -78,8 +78,36 @@ export function Hero() {
             Same internet. Different animal.
           </p>
 
-          {/* mobile / tablet artwork — stacked, no left-fade needed */}
-          <div className="hero-art-mobile mt-7 lg:hidden">
+          {/* ── Mobile / Tablet: CA + CTAs ABOVE the artwork so they're
+               visible on the first screen without scrolling ── */}
+          <div className="mt-5 max-w-md lg:hidden">
+            <CopyAddress />
+          </div>
+
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center lg:hidden">
+            <a
+              href={buyUrl || "#"}
+              target={buyUrl ? "_blank" : undefined}
+              rel={buyUrl ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center justify-center rounded-full bg-boar-green px-8 py-3 font-display text-base font-bold uppercase tracking-wide text-carbon transition hover:brightness-110 sm:text-lg"
+            >
+              Buy $BOAR
+            </a>
+
+            <a
+              href={heroXHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={xUrl ? "View $BOAR on X" : "Open X"}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-surface-raised px-8 py-3 font-display text-base font-semibold uppercase tracking-wide text-ink transition hover:border-white/40 sm:text-lg"
+            >
+              <XIcon className="h-4 w-4" />
+              View on X
+            </a>
+          </div>
+
+          {/* mobile / tablet artwork — moved BELOW the CTAs */}
+          <div className="hero-art-mobile mt-6 lg:hidden">
             <Image
               src="/boar/hero/nikita-wallstreet.jpg"
               alt="$BOAR — a hog in a pinstripe suit checking a gold watch on Wall Street, the Charging Bull behind him"
@@ -92,11 +120,12 @@ export function Hero() {
             <div aria-hidden="true" className="hero-art-mobile__fade" />
           </div>
 
-          <div className="mt-6 max-w-md">
+          {/* ── Desktop: CA + CTAs in their original position ── */}
+          <div className="mt-6 hidden max-w-md lg:block">
             <CopyAddress />
           </div>
 
-          <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-5 hidden gap-3 sm:flex-row sm:items-center lg:flex">
             <a
               href={buyUrl || "#"}
               target={buyUrl ? "_blank" : undefined}
