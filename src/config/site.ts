@@ -26,7 +26,7 @@ export const buyUrl =
  * Official X / Twitter URL. Not derivable, so it is only shown where it makes
  * sense. The hero CTA falls back to the X platform home when this is empty.
  */
-export const xUrl = process.env.NEXT_PUBLIC_X_URL || "";
+export const xUrl = process.env.NEXT_PUBLIC_X_URL || "https://x.com/BOAR_NIKITA_cto";
 
 /** Telegram invite. Only rendered when configured. */
 export const telegramUrl = process.env.NEXT_PUBLIC_TELEGRAM_URL || "";
